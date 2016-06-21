@@ -104,6 +104,7 @@
     if (!_phoneNum) {
         _phoneNum = [[UITextField alloc]init];
         _phoneNum.placeholder = @"请输入手机号码";
+        _phoneNum.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _phoneNum;
 }
@@ -111,6 +112,7 @@
     if (!_password) {
         _password = [[UITextField alloc]init];
         _password.placeholder = @"请输入密码";
+        _password.secureTextEntry = YES;
     }
     return _password;
 }

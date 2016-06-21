@@ -34,6 +34,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 120.0;
 }
+//设置headerView
 //-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 ////    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 35)];
 ////    headView.backgroundColor = GLOBAl_BackColor;
@@ -53,7 +54,7 @@
         cell = [[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    if (indexPath.row != 5) {
+    if (indexPath.row != 3) {
         cell.rightLable.hidden = YES;
     }
     else{
