@@ -52,7 +52,7 @@ static NSString *const kBaseURLString = @"http://123.57.141.249:8080/beautalk/";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor cyanColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     //        self.view.backgroundColor = [UIColor cyanColor];
 }
 

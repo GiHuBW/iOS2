@@ -13,6 +13,8 @@
 #import "GroupBuyModel.h"
 #import "TimerTableView.h"
 #import "DetailsViewController.h"
+#import "SearchViewController.h"
+#import "ClassListViewController.h"
 
 @interface XSGViewController ()<UIScrollViewDelegate,SDCycleScrollViewDelegate>
 @property(nonatomic , strong)UIScrollView *mainScrollView;
@@ -20,13 +22,20 @@
 @property(nonatomic , strong)TwoButtonView *twoButtonView;
 @property(nonatomic , strong)TimerTableView *singleTableView;
 @property(nonatomic , strong)TimerTableView *groupTableView;
+@property(nonatomic , strong)UIBarButtonItem *searchButoonItem;
 @end
 
 @implementation XSGViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden = NO;
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_backImage"] forBarMetrics:UIBarMetricsDefault];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = GLOBAl_BackColor;
+    self.navigationItem.rightBarButtonItem = self.searchButoonItem;
     [self.view addSubview:self.mainScrollView];
     WEAKSELF;
     [_mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,6 +195,14 @@
     if (!_groupTableView) {
         _groupTableView = [[TimerTableView alloc]initWithFrame:CGRectMake(WIDTH, 280, WIDTH, 0) style:UITableViewStylePlain];
         _groupTableView.isSingle = NO;
+        WEAKSELF;
+        _groupTableView.groupBlock = ^(NSString *groupID){
+            ClassListViewController *listViewVC = [[ClassListViewController alloc]init];
+            listViewVC.idDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"appGgroupon/appGrounpGoodsList.do",@"URL",groupID,@"ID",@"GrouponId",@"keyword", nil];
+            listViewVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:listViewVC animated:YES];
+        };
+        
     }
     return _groupTableView;
 }
@@ -202,5 +219,19 @@
         }
     }
 }
-
+-(UIBarButtonItem *)searchButoonItem{
+    if (!_searchButoonItem) {
+        UIButton *search = [UIButton buttonWithType:UIButtonTypeCustom];
+        [search setImage:[UIImage imageNamed:@"限时特卖界面搜索按钮"] forState:UIControlStateNormal];
+        search.frame = CGRectMake(0, 0, 30, 30);
+        [search addTarget:self action:@selector(pushSearchViewController) forControlEvents:UIControlEventTouchUpInside];
+        _searchButoonItem = [[UIBarButtonItem alloc]initWithCustomView:search];
+        
+    }
+    return _searchButoonItem;
+}
+-(void)pushSearchViewController{
+    SearchViewController *searchVC = [[SearchViewController alloc]init];
+    [self.navigationController pushViewController:searchVC animated:YES];
+}
 @end

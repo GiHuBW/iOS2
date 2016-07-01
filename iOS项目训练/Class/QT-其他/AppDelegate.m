@@ -24,6 +24,7 @@
     UIWindow *win = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window = win;
     TabBarController *tabController = [[TabBarController alloc]init];
+    self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = tabController;
     [self.window makeKeyAndVisible];
     //设置微信AppId、appSecret，分享url

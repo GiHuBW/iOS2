@@ -38,7 +38,7 @@
 
 @implementation DetailsViewController
 -(void)viewWillAppear:(BOOL)animated{
-    self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

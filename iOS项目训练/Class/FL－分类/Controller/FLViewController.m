@@ -10,6 +10,7 @@
 #import "ClassCollectionView.h"
 #import "ClassCollectionModel.h"
 #import "EffectClassModel.h"
+#import "ClassListViewController.h"
 
 @interface FLViewController ()
 
@@ -64,7 +65,16 @@
         flowLayout.headerReferenceSize = CGSizeMake(0, 35);
         _classCollection = [[ClassCollectionView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) collectionViewLayout:flowLayout];
         _classCollection.backgroundColor = RGB(245, 245, 245);
+        WEAKSELF;
+        _classCollection.selecteCellBlock = ^(NSDictionary *parameterDic){
+            [weakSelf pushClassListViewController:parameterDic];
+        };
     }
     return _classCollection;
+}
+-(void)pushClassListViewController:(NSDictionary *)parameterDic{
+    ClassListViewController *classListVC = [[ClassListViewController alloc]init];
+    classListVC.idDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:parameterDic[@"URL"],@"URL",parameterDic[@"ShopID"],@"ID",parameterDic[@"Type"],@"keyword", nil];
+    [self.navigationController pushViewController:classListVC animated:YES];
 }
 @end
